@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Events{% endblock %}
+
+{% block content %}
+<h2 class="events-title">Upcoming Events</h2>
+
+{% if events %}
+    <div class="event-list">
+        {% for event in events %}
+        <div class="event-card">
+            <h3 class="event-title">{{ event.title }}</h3>
+            <p class="event-meta">
+                📅 {{ event.date.strftime('%d/%m/%Y') }} <br>
+                📍 {{ event.location }}
+            </p>
+            <p class="event-description">{{ event.description }}</p>
+
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('signup_event', event_id=event.id) }}" class="btn signup-btn">
+                    Sign Up
+                </a>
+
+                {% if event.organizer_id == current_user.id %}
+                    <!-- Organizer-only buttons -->
+                    <a href="{{ url_for('view_attendees', event_id=event.id) }}" class="btn-attendees">
+                        View Attendees
+                    </a>
+
+                    <form action="{{ url_for('delete_event', event_id=event.id) }}"
+                          method="POST"
+                          style="display:inline;">
+                        <button type="submit" class="btn-delete">Delete</button>
+                    </form>
+                {% endif %}
+            {% else %}
+                <a href="{{ url_for('login') }}" class="btn signup-btn">
+                    Login to Sign Up
+                </a>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p class="no-events">No events available.</p>
+{% endif %}
+{% endblock %}

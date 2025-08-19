@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Event Manager</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='landing_page.css')}}">
+
+</head>
+<body>
+    <div class="container">
+        <header class="header-landing">
+            <div class="header_text">
+                <p style="text-align:center">See how the event manager can solve your biggest problems</p>
+            </div>
+            <div class="header_links">
+                <a href="{{url_for('landing_page')}}">
+                    <span class="header_span"><h1>EventManager</h1></span>
+                </a>
+
+               <nav class="header-navbar">
+
+                    <a href="{{ url_for('login') }}">Login</a>
+                    <a href="{{ url_for('register') }}" class="register-btn">Register</a>
+                </nav>
+
+            </div>
+        </header>
+<div class="landing_writeup">
+    <h3>Event management software</h3>
+    <p>A smart event planner tech platform, <br>powered by Group 9</p>
+
+    <p>
+        Are you using manual processes to plan and execute great events?
+        Ditch the busy work. With Cvent you'll have the power to automate tasks
+        and simplify the entire planning process so you can focus on what matters most:
+        your attendees.
+    </p>
+
+    <a href="{{ url_for('register') }}" class="button-primary">Get Started</a>
+</div>
+
+
+    </div>
+</body>
+</html>

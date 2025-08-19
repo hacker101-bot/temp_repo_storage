@@ -1,0 +1,13 @@
+<h2>Attendees for {{ event.title }}</h2>
+
+{% if attendees %}
+    <ul>
+    {% for user in attendees %}
+        <li>{{ user.username }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No one has signed up yet.</p>
+{% endif %}
+
+<a href="{{ url_for('dashboard') }}">Back to Dashboard</a>

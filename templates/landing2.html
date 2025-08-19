@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}Welcome | Mini Cvent{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+  <h1>Plan. Discover. Join. <br>Events Made Simple.</h1>
+  <p>Easily create, manage, and join events in just a few clicks.</p>
+  <div class="hero-buttons">
+    <a href="{{ url_for('list_events') }}" class="btn primary">Browse Events</a>
+    <a href="{{ url_for('create_event') }}" class="btn secondary">Create Event</a>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="features">
+  <h2>Why Use Mini Cvent?</h2>
+  <div class="feature-list">
+    <div class="feature">
+      <h3>✅ Discover Events Near You</h3>
+      <p>Find events tailored to your community and interests.</p>
+    </div>
+    <div class="feature">
+      <h3>🎟 Register with One Click</h3>
+      <p>Quickly secure your spot at exciting events.</p>
+    </div>
+    <div class="feature">
+      <h3>📅 Create & Manage Events</h3>
+      <p>Organizers can set up events and track attendees easily.</p>
+    </div>
+    <div class="feature">
+      <h3>🔔 Get Reminders</h3>
+      <p>Stay updated so you never miss an event again.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Upcoming Events Preview -->
+<section class="upcoming">
+  <h2>Upcoming Events</h2>
+  <ul class="event-list">
+    {% for event in events[:3] %}
+    <li class="event-card">
+      <strong>{{ event.title }}</strong> <br>
+      <span>{{ event.date.strftime('%d/%m/%Y') }} at {{ event.location }}</span>
+      <p>{{ event.description }}</p>
+      <a href="{{ url_for('signup_event', event_id=event.id) }}" class="btn small">Sign Up</a>
+    </li>
+    {% else %}
+    <p>No events available at the moment.</p>
+    {% endfor %}
+  </ul>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonials">
+  <h2>What People Are Saying</h2>
+  <div class="testimonial-list">
+    <blockquote>
+      “I’ve never missed a school event since I started using Mini Cvent!”  
+      <footer>– Sarah, Student</footer>
+    </blockquote>
+    <blockquote>
+      “Organizing events is now so easy.”  
+      <footer>– Mr. James, Faculty</footer>
+    </blockquote>
+  </div>
+</section>
+
+<!-- About Section -->
+<section class="about">
+  <h2>About Mini Cvent</h2>
+  <p>We built Mini Cvent to help students and communities stay connected.  
+     Whether you’re planning, managing, or attending events — everything is simple and streamlined.</p>
+</section>
+
+<!-- Final Call to Action -->
+<section class="final-cta">
+  <h2>🎉 Ready to join your next event?</h2>
+  <a href="{{ url_for('register') }}" class="btn primary">Get Started Now</a>
+</section>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2>Search Results</h2>
+  {% if query %}
+    <p>Results for: <strong>{{ query }}</strong></p>
+  {% endif %}
+
+  <ul>
+  {% for event in events %}
+      <li>
+          <strong>{{ event.title }}</strong> - {{ event.location }} 
+          ({{ event.date.strftime('%Y-%m-%d') }})
+      </li>
+  {% else %}
+      <p>No events found.</p>
+  {% endfor %}
+  </ul>
+{% endblock %}

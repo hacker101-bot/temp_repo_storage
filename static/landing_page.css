@@ -1,0 +1,165 @@
+    /* ========== BASE STYLES ========== */
+    body {
+        margin: 0;
+        padding: 0;
+        background: #fff;
+        font-family: BrandonText, sans-serif;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #333;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    :root {
+        --light-grey: #e9e9e9;
+        --grey: #69717a;
+        --dark-blue-color: #161851;
+        --hover-state-blue-color: #0050ab;
+        --green-color: #005f4a;
+        --green-bg: #eafbf7;
+        --border: 1px solid var(--light-grey);
+        --font-size-18: 18px;
+        --font-size-16: 16px;
+        --font-weight-600: 600;
+        --font-weight-700: 700;
+        --max-width: 1100px;
+    }
+
+    /* ========== HEADER ========== */
+    .header-landing {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        border-bottom: var(--border);
+        background-color: #fff;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+
+    .header_text {
+        background-color: var(--light-grey);
+        padding: 0.5rem;
+        text-align: center;
+        font-size: var(--font-size-16);
+        color: var(--grey);
+    }
+
+    .header_links {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.75rem 2rem;
+        max-width: var(--max-width);
+        margin: 0 auto;
+        gap:5rem
+    }
+
+    /* Logo span */
+    .header_span h1 {
+        color: var(--dark-blue-color);
+        font-size: 1.8rem;
+        font-weight: var(--font-weight-700);
+        margin: 0;
+    }
+
+    /* Navigation */
+    .header-navbar {
+        display: flex;
+        gap: 1.5rem;
+    }
+
+    .header-navbar a {
+        color: var(--dark-blue-color);
+        font-weight: var(--font-weight-600);
+        text-decoration: none;
+        transition: color 0.3s ease, transform 0.2s ease;
+    }
+
+    .header-navbar a:hover {
+        color: var(--hover-state-blue-color);
+        transform: scale(1.05);
+    }
+
+    /* Highlight Register as a button */
+    .header-navbar a.register-btn {
+        background-color: var(--hover-state-blue-color);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 25px;
+        font-weight: var(--font-weight-700);
+    }
+
+    .header-navbar a.register-btn:hover {
+        background-color: #003a7a;
+        transform: scale(1.05);
+    }
+
+    /* ========== LANDING CONTENT ========== */
+    .landing_content {
+        background-image: linear-gradient(90deg, #006ae1 0, #8457d9 100%);
+        color: white;
+        padding: 5rem 2rem;
+        text-align: center;
+    }
+
+    .landing_writeup {
+        max-width: 800px;
+        margin: 0 auto;
+        animation: fadeIn 1s ease-in-out;
+    }
+
+    .landing_writeup h3 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        animation: slideInLeft 1s ease-out;
+    }
+
+    .landing_writeup p {
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.7;
+    }
+
+    /* Call-to-action button */
+    .landing_writeup .button-primary {
+        display: inline-block;
+        background-color: white;
+        color: var(--dark-blue-color);
+        padding: 0.8rem 1.8rem;
+        border-radius: 30px;
+        font-weight: var(--font-weight-700);
+        text-decoration: none;
+        transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    .landing_writeup .button-primary:hover {
+        background-color: var(--green-color);
+        color: white;
+        transform: scale(1.05);
+    }
+
+    /* ========== FOOTER (OPTIONAL) ========== */
+    footer {
+        background: var(--dark-blue-color);
+        color: white;
+        text-align: center;
+        padding: 1rem;
+        font-size: 0.9rem;
+        margin-top: 3rem;
+    }
+
+    /* ========== ANIMATIONS ========== */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideInLeft {
+        from { opacity: 0; transform: translateX(-30px); }
+        to   { opacity: 1; transform: translateX(0); }
+    }
+    a{
+    text-decoration:none
+    }
