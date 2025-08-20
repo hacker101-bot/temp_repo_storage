@@ -94,8 +94,19 @@ def logout():
 @app.route('/list-events', methods=['GET'])
 @login_required
 def list_events():
-    events = Event.query.all()
-    return render_template('events.html', events=events)
+    q = request.args.get('q', '').strip()  # keep search working if you added it
+    query = Event.query.filter_by(organizer_id=current_user.id)
+
+    if q:
+        like = f"%{q}%"
+        query = query.filter(
+            (Event.title.ilike(like)) |
+            (Event.location.ilike(like)) |
+            (Event.description.ilike(like))
+        )
+
+    events = query.order_by(Event.date.asc()).all()
+    return render_template('events.html', events=events, only_mine=True)
 
 @app.route("/create", methods=['GET', 'POST'])
 @login_required
@@ -171,7 +182,6 @@ def delete_event(event_id):
     db.session.commit()
     flash("Event deleted successfully!", "success")
     return redirect(url_for('list_events'))
-
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
