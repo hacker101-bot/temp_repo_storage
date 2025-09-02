@@ -1,10 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends "base.html" %}
+{% block title %}{{ user.username }}'s Profile{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <h2>{{ user.username }}'s Profile</h2>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    {#<p><strong>Joined:</strong> {{ user.date_created.strftime("%B %d, %Y") }}</p>#}
+
+    <hr>
+
+    <h3>Events Created</h3>
+    {% if created_events %}
+        <ul class="event-list">
+        {% for event in created_events %}
+            <li>{{ event.title }} — {{ event.date.strftime("%Y-%m-%d") }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No events created yet.</p>
+    {% endif %}
+
+    <h3>Events Signed Up For</h3>
+    {% if signed_up_events %}
+        <ul class="event-list">
+        {% for event in signed_up_events %}
+            <li>{{ event.title }} — {{ event.date.strftime("%Y-%m-%d") }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No signups yet.</p>
+    {% endif %}
+    <div class="form-container">
+    <h2>Change Password</h2>
+    <form method="POST" action="{{ url_for('change_password') }}">
+        <label for="current_password">Current Password</label>
+        <input type="password" name="current_password" required>
+
+        <label for="new_password">New Password</label>
+        <input type="password" name="new_password" required>
+
+        <label for="confirm_password">Confirm New Password</label>
+        <input type="password" name="confirm_password" required>
+
+        <button type="submit">Update Password</button>
+    </form>
+</div>
+</div>
+{% endblock %}

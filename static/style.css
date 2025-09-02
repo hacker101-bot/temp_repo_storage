@@ -413,3 +413,29 @@ footer {
     margin: 0.3rem 0;
   }
 }
+.profile-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.profile-container h2 {
+    margin-bottom: 10px;
+}
+
+.profile-container ul {
+    list-style: none;
+    padding: 0;
+}
+
+.profile-container li {
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+.signup_dashboard{
+    background-color:green
+    color:white
+}

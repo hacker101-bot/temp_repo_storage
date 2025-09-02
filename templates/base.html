@@ -15,8 +15,9 @@
             <a href="{{ url_for('logout') }}">Logout</a>
             <a href="{{ url_for('list_events') }}">My Events</a>
             <a href="{{ url_for('create_event') }}">Create Event</a>
-           <form action="{{ url_for('search_events') }}" method="GET" style="display:inline;">
+           <a href="{{ url_for('user_profilepage', user_id=current_user.id) }}">View Profile</a>
 
+           <form action="{{ url_for('search_events') }}" method="GET" style="display:inline;">
                <input type="text" name="q" placeholder="Search events..." value="{{ request.args.get('q', '') }}" class="search-bar">
 
            </form>

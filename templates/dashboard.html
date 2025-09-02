@@ -12,16 +12,21 @@
     {% if events %}
         <ul>
             {% for event in events %}
+
                 <li>
                     <strong>{{ event.title }}</strong>
                     - {{ event.date.strftime('%d/%m/%Y') }} at {{ event.location }}
                     <p>{{ event.description }}</p>
-                    <a href="{{ url_for('signup_event', event_id=event.id) }}">Sign Up</a>
                 </li>
+              <a href="{{ url_for('signup_event', event_id=event.id) }}" class="btn signup-btn">
+                    Sign Up
+                </a>
             {% endfor %}
         </ul>
     {% else %}
         <p>No upcoming events right now. 🎉</p>
     {% endif %}
 </div>
+
+
 {% endblock %}

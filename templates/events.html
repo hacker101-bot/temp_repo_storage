@@ -2,7 +2,7 @@
 {% block title %}Events{% endblock %}
 
 {% block content %}
-<h2 class="events-title">Upcoming Events</h2>
+<h2 class="events-title">Created Events</h2>
 
 {% if events %}
     <div class="event-list">
@@ -16,10 +16,6 @@
             <p class="event-description">{{ event.description }}</p>
 
             {% if current_user.is_authenticated %}
-                <a href="{{ url_for('signup_event', event_id=event.id) }}" class="btn signup-btn">
-                    Sign Up
-                </a>
-
                 {% if event.organizer_id == current_user.id %}
                     <!-- Organizer-only buttons -->
                     <a href="{{ url_for('view_attendees', event_id=event.id) }}" class="btn-attendees">
@@ -27,8 +23,7 @@
                     </a>
 
                     <form action="{{ url_for('delete_event', event_id=event.id) }}"
-                          method="POST"
-                          style="display:inline;">
+                          method="POST">
                         <button type="submit" class="btn-delete">Delete</button>
                     </form>
                 {% endif %}
