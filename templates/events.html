@@ -1,4 +1,4 @@
- {% extends "base.html" %}
+{% extends "base.html" %}
 {% block title %}Events{% endblock %}
 
 {% block content %}
@@ -22,20 +22,23 @@
                         View Attendees
                     </a>
 
-                    <form action="{{ url_for('delete_event', event_id=event.id) }}"
-                          method="POST">
+                    <form action="{{ url_for('delete_event', event_id=event.id) }}" method="POST">
                         <button type="submit" class="btn-delete">Delete</button>
                     </form>
 
-                    <!-- NEW: Share buttons -->
+                    <!-- ✅ Share Buttons -->
                     <div class="share-buttons">
-                        <p>Share this event:</p>
-                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ url_for('view_attendees', event_id=event.id, _external=True) }}"
-                           target="_blank" class="btn-share facebook">Facebook</a>
-                        <a href="https://twitter.com/intent/tweet?url={{ url_for('view_attendees', event_id=event.id, _external=True) }}&text=Join my event: {{ event.title }}"
-                           target="_blank" class="btn-share twitter">Twitter</a>
-                        <a href="mailto:?subject=Join my event: {{ event.title }}&body=Check it out here: {{ url_for('view_attendees', event_id=event.id, _external=True) }}"
-                           class="btn-share email">Email</a>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.url_root }}event/{{ event.id }}" 
+                           target="_blank" class="btn-share facebook">Share on Facebook</a>
+
+                        <a href="https://twitter.com/intent/tweet?url={{ request.url_root }}event/{{ event.id }}&text=Check out this event: {{ event.title }}" 
+                           target="_blank" class="btn-share twitter">Share on Twitter</a>
+
+                        <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.url_root }}event/{{ event.id }}" 
+                           target="_blank" class="btn-share linkedin">Share on LinkedIn</a>
+
+                        <a href="https://api.whatsapp.com/send?text=Check out this event: {{ event.title }} - {{ request.url_root }}event/{{ event.id }}" 
+                           target="_blank" class="btn-share whatsapp">Share on WhatsApp</a>
                     </div>
                 {% endif %}
             {% else %}
