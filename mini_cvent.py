@@ -69,7 +69,7 @@ class LoginForm(FlaskForm):
 
 class EventForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
-    date = DateField('Date', format='%m-%d-%Y', validators=[DataRequired()])
+    date = DateField('Date', format='%Y-%m-%d', validators=[DataRequired()])
     location = StringField('Location', validators=[DataRequired()])
     description = TextAreaField('Description', validators=[DataRequired()])
     submit = SubmitField('Submit')
