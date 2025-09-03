@@ -439,3 +439,32 @@ footer {
     background-color:green
     color:white
 }
+/* Share buttons */
+.share-buttons {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.btn-share {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    text-decoration: none;
+    font-weight: bold;
+    color: white;
+    transition: background 0.2s ease-in-out;
+}
+
+.btn-share.facebook { background: #3b5998; }
+.btn-share.facebook:hover { background: #2d4373; }
+
+.btn-share.twitter { background: #1da1f2; }
+.btn-share.twitter:hover { background: #0d8ddb; }
+
+.btn-share.linkedin { background: #0077b5; }
+.btn-share.linkedin:hover { background: #005582; }
+
+.btn-share.whatsapp { background: #25D366; }
+.btn-share.whatsapp:hover { background: #1da851; }
