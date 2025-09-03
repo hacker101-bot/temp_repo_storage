@@ -1,41 +1,52 @@
-    {% extends "base.html" %}
-    {% block title %}Events{% endblock %}
+ {% extends "base.html" %}
+{% block title %}Events{% endblock %}
 
-    {% block content %}
-    <h2 class="events-title">Created Events</h2>
+{% block content %}
+<h2 class="events-title">Created Events</h2>
 
-    {% if events %}
-        <div class="event-list">
-            {% for event in events %}
-            <div class="event-card">
-                <h3 class="event-title">{{ event.title }}</h3>
-                <p class="event-meta">
-                    📅 {{ event.date.strftime('%d/%m/%Y') }} <br>
-                    📍 {{ event.location }}
-                </p>
-                <p class="event-description">{{ event.description }}</p>
+{% if events %}
+    <div class="event-list">
+        {% for event in events %}
+        <div class="event-card">
+            <h3 class="event-title">{{ event.title }}</h3>
+            <p class="event-meta">
+                📅 {{ event.date.strftime('%d/%m/%Y') }} <br>
+                📍 {{ event.location }}
+            </p>
+            <p class="event-description">{{ event.description }}</p>
 
-                {% if current_user.is_authenticated %}
-                    {% if event.organizer_id == current_user.id %}
-                        <!-- Organizer-only buttons -->
-                        <a href="{{ url_for('view_attendees', event_id=event.id) }}" class="btn-attendees">
-                            View Attendees
-                        </a>
-
-                        <form action="{{ url_for('delete_event', event_id=event.id) }}"
-                              method="POST">
-                            <button type="submit" class="btn-delete">Delete</button>
-                        </form>
-                    {% endif %}
-                {% else %}
-                    <a href="{{ url_for('login') }}" class="btn signup-btn">
-                        Login to Sign Up
+            {% if current_user.is_authenticated %}
+                {% if event.organizer_id == current_user.id %}
+                    <!-- Organizer-only buttons -->
+                    <a href="{{ url_for('view_attendees', event_id=event.id) }}" class="btn-attendees">
+                        View Attendees
                     </a>
+
+                    <form action="{{ url_for('delete_event', event_id=event.id) }}"
+                          method="POST">
+                        <button type="submit" class="btn-delete">Delete</button>
+                    </form>
+
+                    <!-- NEW: Share buttons -->
+                    <div class="share-buttons">
+                        <p>Share this event:</p>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ url_for('view_attendees', event_id=event.id, _external=True) }}"
+                           target="_blank" class="btn-share facebook">Facebook</a>
+                        <a href="https://twitter.com/intent/tweet?url={{ url_for('view_attendees', event_id=event.id, _external=True) }}&text=Join my event: {{ event.title }}"
+                           target="_blank" class="btn-share twitter">Twitter</a>
+                        <a href="mailto:?subject=Join my event: {{ event.title }}&body=Check it out here: {{ url_for('view_attendees', event_id=event.id, _external=True) }}"
+                           class="btn-share email">Email</a>
+                    </div>
                 {% endif %}
-            </div>
-            {% endfor %}
+            {% else %}
+                <a href="{{ url_for('login') }}" class="btn signup-btn">
+                    Login to Sign Up
+                </a>
+            {% endif %}
         </div>
-    {% else %}
-        <p class="no-events">No events available.</p>
-    {% endif %}
-    {% endblock %}
+        {% endfor %}
+    </div>
+{% else %}
+    <p class="no-events">No events available.</p>
+{% endif %}
+{% endblock %}
