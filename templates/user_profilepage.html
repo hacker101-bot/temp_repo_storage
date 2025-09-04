@@ -2,18 +2,135 @@
 {% block title %}{{ user.username }}'s Profile{% endblock %}
 
 {% block content %}
+<style>
+    .profile-container {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 20px 30px;
+        background-color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    .profile-container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .profile-container hr {
+        border: none;
+        border-top: 2px solid #e0e0e0;
+        margin: 20px 0;
+    }
+
+    h3 {
+        color: #333;
+        margin-top: 25px;
+        margin-bottom: 10px;
+    }
+
+    .event-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .event-list li {
+        padding: 12px 15px;
+        margin-bottom: 10px;
+        background-color: #f1f5f9;
+        border-radius: 8px;
+        transition: transform 0.2s, background-color 0.2s;
+    }
+
+    .event-list li:hover {
+        background-color: #e0e7ff;
+        transform: translateX(5px);
+    }
+
+    p {
+        color: #555;
+        font-style: italic;
+    }
+
+    /* Change Password Form */
+    .form-container {
+        margin-top: 30px;
+        background-color: #f8f9fc;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+    }
+
+    .form-container h2 {
+        color: #1a73e8;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .form-container label {
+        display: block;
+        margin-top: 15px;
+        font-weight: 500;
+        color: #333;
+    }
+
+    .form-container input {
+        width: 100%;
+        padding: 10px 12px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 14px;
+        transition: border-color 0.3s;
+    }
+
+    .form-container input:focus {
+        border-color: #1a73e8;
+        outline: none;
+        box-shadow: 0 0 8px rgba(26,115,232,0.2);
+    }
+
+    .form-container button {
+        margin-top: 20px;
+        width: 100%;
+        padding: 12px;
+        background-color: #1a73e8;
+        color: white;
+        font-size: 16px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .form-container button:hover {
+        background-color: #155ab6;
+        transform: translateY(-2px);
+    }
+
+    /* Contact Info */
+    .contact-info {
+        margin-top: 10px;
+        padding: 12px;
+        background-color: #e0f2fe;
+        border-radius: 8px;
+        text-align: center;
+        color: #0369a1;
+        font-weight: 500;
+    }
+
+</style>
+
 <div class="profile-container">
     <h2>{{ user.username }}'s Profile</h2>
-    <p><strong>Email:</strong> {{ user.email }}</p>
-    {#<p><strong>Joined:</strong> {{ user.date_created.strftime("%B %d, %Y") }}</p>#}
-
     <hr>
 
     <h3>Events Created</h3>
     {% if created_events %}
         <ul class="event-list">
         {% for event in created_events %}
-            <li>{{ event.title }} — {{ event.date.strftime("%Y-%m-%d") }}</li>
+            <li>{{ event.title }} — {{ event.date.strftime("%Y/%m/%d") }}</li>
         {% endfor %}
         </ul>
     {% else %}
@@ -24,26 +141,34 @@
     {% if signedup_events %}
         <ul class="event-list">
         {% for event in signedup_events %}
-            <li>{{ event.title }} — {{ event.date.strftime("%Y-%m-%d") }}</li>
+            <li>{{ event.title }} — {{ event.date.strftime("%Y/%m/%d") }} <br> <br>
+                {{event.description}}
+            </li>
+
         {% endfor %}
         </ul>
+        <div class="contact-info">
+            Please contact this number for buying of event ticket:<br>
+            +2348127930629
+        </div>
     {% else %}
         <p>No signups yet.</p>
     {% endif %}
+
     <div class="form-container">
-    <h2 style="text-align:center">Change Password</h2>
-    <form method="POST" action="{{ url_for('change_password') }}">
-        <label for="current_password">Current Password</label>
-        <input type="password" name="current_password" required>
+        <h2>Change Password</h2>
+        <form method="POST" action="{{ url_for('change_password') }}">
+            <label for="current_password">Current Password</label>
+            <input type="password" name="current_password" required>
 
-        <label for="new_password">New Password</label>
-        <input type="password" name="new_password" required>
+            <label for="new_password">New Password</label>
+            <input type="password" name="new_password" required>
 
-        <label for="confirm_password">Confirm New Password</label>
-        <input type="password" name="confirm_password" required>
+            <label for="confirm_password">Confirm New Password</label>
+            <input type="password" name="confirm_password" required>
 
-        <button type="submit">Update Password</button>
-    </form>
-</div>
+            <button type="submit">Update Password</button>
+        </form>
+    </div>
 </div>
 {% endblock %}

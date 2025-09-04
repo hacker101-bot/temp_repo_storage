@@ -64,7 +64,8 @@ class Event(db.Model):
 
 class RegisterForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired(),Length(min=8, message="Password must be at least 8 characters long")])
+
     confirm = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Register')
 
@@ -77,7 +78,7 @@ class EventForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     date = DateField('Date', format='%Y-%m-%d', validators=[DataRequired()])
     location = StringField('Location', validators=[DataRequired()])
-    description = TextAreaField('Description', validators=[DataRequired()])
+    description = TextAreaField('Description', validators=[DataRequired()],render_kw={"placeholder": "Enter a brief description of your event,the price of your ticket "})
     submit = SubmitField('Submit')
 
 @login_manager.user_loader
