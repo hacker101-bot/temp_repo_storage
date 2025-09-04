@@ -88,6 +88,12 @@ def load_user(user_id):
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
+        # Check if username already exists
+        existing_user = User.query.filter_by(username=form.username.data).first()
+        if existing_user:
+            flash("That username is already taken. Please choose a different one.", "danger")
+            return redirect(url_for('register'))
+    if form.validate_on_submit():
         hashed_password = generate_password_hash(form.password.data, method='pbkdf2:sha256')
         new_user = User(username=form.username.data, password=hashed_password)
         db.session.add(new_user)
