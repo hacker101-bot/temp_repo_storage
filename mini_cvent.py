@@ -20,11 +20,6 @@ login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
 # Many-to-Many relationship table
-registrations = db.Table(
-    'registrations',
-    db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
-    db.Column('event_id', db.Integer, db.ForeignKey('event.id'))
-)
 # Association table
 event_signups = db.Table(
     'event_signups',
@@ -36,14 +31,17 @@ event_signups = db.Table(
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), unique=True, nullable=False)
-    password = db.Column(db.String(200), nullable=False)  # increased length
-    events = db.relationship('Event', backref='attendees', secondary=registrations)
+    password = db.Column(db.String(200), nullable=False)
+
     created_events = db.relationship('Event', backref='creator', lazy=True)
+
+    # 👇 use event_signups only
     signed_up_events = db.relationship(
         'Event',
         secondary=event_signups,
         back_populates='attendees'
     )
+
 
 
 class Event(db.Model):
@@ -55,6 +53,14 @@ class Event(db.Model):
 
     organizer_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     organizer = db.relationship('User', backref="organized_events")
+
+    # 👇 connect to User.signed_up_events
+    attendees = db.relationship(
+        'User',
+        secondary=event_signups,
+        back_populates='signed_up_events'
+    )
+
 
 class RegisterForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
@@ -152,7 +158,7 @@ def signup_event(event_id):
         flash("You have successfully signed up for this event!", "success")
     else:
         flash("You are already signed up for this event.", "danger")
-    return redirect(url_for('list_events'))
+    return redirect(url_for('user_profilepage', user_id=current_user.id))
 
 @app.route('/dashboard')
 @login_required

@@ -21,9 +21,9 @@
     {% endif %}
 
     <h3>Events Signed Up For</h3>
-    {% if signed_up_events %}
+    {% if signedup_events %}
         <ul class="event-list">
-        {% for event in signed_up_events %}
+        {% for event in signedup_events %}
             <li>{{ event.title }} — {{ event.date.strftime("%Y-%m-%d") }}</li>
         {% endfor %}
         </ul>
