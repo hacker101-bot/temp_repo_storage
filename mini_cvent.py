@@ -89,6 +89,12 @@ def load_user(user_id):
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
+        password = request.form['password']
+        if len(password) < 8:
+            flash("Password must be at least 8 characters long", "error")
+            return redirect(url_for('register'))
+
+    if form.validate_on_submit():
         # Check if username already exists
         existing_user = User.query.filter_by(username=form.username.data).first()
         if existing_user:
